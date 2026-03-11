@@ -67,5 +67,41 @@ public static void main(String[] args) {
 	//descending order sal
 	
 	list.stream().sorted((e1,e2)->Double.compare(e2.getSalary() ,e1.getSalary())).forEach(System.out::println);
+	
+	//get emplyoes with captial letters
+	
+	list.stream().map(names->names.getName().toUpperCase()).forEach(System.out::println);
+	
+	//getList of emplyoee salaries
+	
+	list.stream().map(Emplyoee::getSalary).forEach(System.out::print);
+	
+	
+	//get emplyoess with sorted by name
+	
+	list.stream().sorted(Comparator.comparing(Emplyoee::getName)).forEach(System.out::println);
+	
+	//grouping by departments
+			Map<String, List<Emplyoee>> l=list.stream().collect(Collectors.groupingBy(Emplyoee::getDepartment));
+			
+			l.forEach((department,emp)->{
+			System.out.println("Department "+department);
+			
+			emp.forEach((name)->System.out.println( name.getName()));
+			
+			System.out.println();
+		});
+			// count how many members in each dept
+			Map<String,Long> countemp=list.stream().collect(Collectors.groupingBy(Emplyoee::getDepartment,
+					Collectors.counting()
+					));
+			
+			countemp.forEach((dept1,count1)->{
+				System.out.println("Deparment "+dept1+":"+count1);
+				
+				
+			});
+	
 }
+
 }
